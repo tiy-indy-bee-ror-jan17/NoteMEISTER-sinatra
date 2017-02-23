@@ -10,7 +10,7 @@ FactoryGirl.define do
     factory :note_with_tags do
       after(:create) do |job, evaluator|
         evaluator.tag_count.times do
-          job.tags << build(:tag)
+          job.tags << Tag.find_or_initialize_by(name: Faker::Company.buzzword.gsub(%r(\s), "_"))
         end
       end
     end

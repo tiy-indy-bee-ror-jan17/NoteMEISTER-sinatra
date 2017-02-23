@@ -6,19 +6,16 @@ require 'active_record'
 require 'faker'
 require 'factory_girl'
 require 'rack/test'
-require 'shoulda/matchers'
 require 'database_cleaner'
+require_relative '../models/tag'
+require_relative '../models/tagging'
+require_relative '../models/note'
+require_relative '../app'
 
 FactoryGirl.definition_file_paths = %w{./factories ./test/factories ./spec/factories}
 FactoryGirl.find_definitions
 
 DatabaseCleaner.strategy = :truncation
-
-Shoulda::Matchers.configure do |config|
-  config.integrate do |with|
-    with.test_framework :minitest
-  end
-end
 
 ActiveRecord::Base.establish_connection(
   adapter:  'sqlite3',
