@@ -11,7 +11,7 @@ class ApplicationMigration < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
-    create_table :tagings do |t|
+    create_table :taggings do |t|
       t.integer :tag_id
       t.integer :note_id
 
