@@ -9,5 +9,7 @@ source 'https://rubygems.org' do
   gem 'faker'
   gem 'puma'
   gem 'pry'
+  gem 'rabl'
+  gem 'oj'
 
 end

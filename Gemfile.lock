@@ -23,11 +23,14 @@ GEM
     i18n (0.8.0)
     method_source (0.8.2)
     minitest (5.10.1)
+    oj (2.18.1)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
     puma (3.7.1)
+    rabl (0.13.1)
+      activesupport (>= 2.3.14)
     rack (1.6.5)
     rack-protection (1.5.3)
       rack
@@ -52,8 +55,10 @@ DEPENDENCIES
   database_cleaner!
   factory_girl!
   faker!
+  oj!
   pry!
   puma!
+  rabl!
   rack-test!
   sinatra!
   sqlite3!
