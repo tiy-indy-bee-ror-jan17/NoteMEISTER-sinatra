@@ -37,3 +37,10 @@ elsif ARGV[0] == 'test'
   )
   ApplicationMigration.migrate(:up)
 end
+=begin
+{
+  title:  "My created post",
+  body:   "My created body",
+  tags:   "api, machine, first"
+}
+=end
