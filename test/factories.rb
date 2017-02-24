@@ -1,3 +1,9 @@
+# require 'pry'
+# Per Chris, what does this do?
+#     It defines FactoryGirl factories (object to test with) for use in the tests
+# Chris said if I wanted to shorten the amount of data I'm looking at, I can
+# set paragraphs to 1
+#
 FactoryGirl.define do
   factory :note do
     title { Faker::Book.title }
@@ -14,6 +20,7 @@ FactoryGirl.define do
         end
       end
     end
+
   end
 
 end
@@ -22,4 +29,6 @@ FactoryGirl.define do
   factory :tag do
     name { Faker::Company.buzzword.gsub(%r(\s), "_") }
   end
+
+
 end
