@@ -7,7 +7,7 @@ class Note < ActiveRecord::Base
   validates :title, presence: true
   validates :body,  presence: true
 
-  def as_json(arg=nil)
+  def as_json(_)
     {
       "title"       => title,
       "body"        => body,

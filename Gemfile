@@ -8,5 +8,6 @@ source 'https://rubygems.org' do
   gem 'factory_girl'
   gem 'faker'
   gem 'rabl'
+  gem 'puma'
 
 end

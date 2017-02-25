@@ -7,9 +7,9 @@ class Tag < ActiveRecord::Base
   validates :name,  presence: true
   validates_uniqueness_of :name
 
-  def as_json(arg=nil) {
+  def as_json(_) {
     "name"       => name,
-    "notes"      => notes.map{|x| x.as_json}
+    "notes"      => notes.map{|x| x.as_json(_)}
     }
   end
 

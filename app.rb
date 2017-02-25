@@ -1,9 +1,15 @@
+require 'puma'
 require 'sinatra'
 require 'active_record'
 require 'sqlite3'
 require 'ostruct'
-# require 'rabl'
-# Rabl.register!
+require 'rabl'
+configure {set :server, :puma}
+Rabl.configure do |config|
+  config.include_json_root = false
+  config.include_child_root = false
+end
+Rabl.register!
 
 ActiveRecord::Base.establish_connection(
   adapter:  'sqlite3',
@@ -18,6 +24,8 @@ end
 
 get '/api/notes.json' do
   notes = Note.all
+  # @noter = OpenStruct.new(notes)
+  # rabl @noter
   notes.to_json
 end
 
