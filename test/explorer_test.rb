@@ -41,7 +41,7 @@ class ExplorerTest < JacquesTest
     assert_equal 11, Note.count
     assert_equal 3, json['tags'].length
   end
-
+  
   def test_improper_note
     post '/api/notes',
       {
@@ -53,7 +53,7 @@ class ExplorerTest < JacquesTest
     json = JSON.parse(last_response.body)
     assert_equal "Title can't be blank", json['errors'].first['error']
   end
-  
+
 
   private
 
