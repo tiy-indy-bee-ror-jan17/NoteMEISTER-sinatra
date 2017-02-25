@@ -29,6 +29,7 @@ ActiveRecord::Base.establish_connection(
 
 
 get "/not_found" do
+    status 404
 end
 
 get '/api/notes.json' do
@@ -45,18 +46,19 @@ get "/api/notes/tag/:name" do
 end
 
 
-# post '/api/notes' do
-#   @note = Note.new(title: params[:title], body: params[:body])
-#   if note.save
-#     params[:tags].split(',').each do |t|
-#     tag = Tag.find_or_create_by(name: t)
-#     note.tags << tag
-#   end
-#     note.to_json
-#   else
-#     @error = OpenStruct.new({code:400, message: @note.errors.full_messages.first})
-#   end
-# end
+post '/api/notes' do
+  note = Note.new(title: params[:title], body: params[:body])
+  if note.save
+    params[:tags].split(',').each do |t|
+    tag = Tag.find_or_create_by(name: t)
+    note.tags << tag
+  end
+    note.to_json
+  else
+    status 400
+    {errors: note.errors.full_messages.collect{|e| {error: e}}}.to_json
+  end
+end
 
 
 # post '/api/notes' do

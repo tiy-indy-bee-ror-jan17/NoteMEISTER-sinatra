@@ -42,18 +42,18 @@ class ExplorerTest < JacquesTest
     assert_equal 3, json['tags'].length
   end
   #
-  # def test_improper_note
-  #   post '/api/notes',
-  #     {
-  #       title:  "",
-  #       body:   "My created body",
-  #       tags:   "api, machine, first"
-  #     }
-  #   assert_equal 400, last_response.status
-  #   json = JSON.parse(last_response.body)
-  #   assert_equal "Title can't be blank", json['errors'].first['error']
-  # end
-  #
+  def test_improper_note
+    post '/api/notes',
+      {
+        title:  "",
+        body:   "My created body",
+        tags:   "api, machine, first"
+      }
+    assert_equal 400, last_response.status
+    json = JSON.parse(last_response.body)
+    assert_equal "Title can't be blank", json['errors'].first['error']
+  end
+
   #
   # private
   #
