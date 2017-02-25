@@ -41,7 +41,7 @@ class ExplorerTest < JacquesTest
     assert_equal 11, Note.count
     assert_equal 3, json['tags'].length
   end
-
+  
   def test_improper_note
     post '/api/notes',
       {
