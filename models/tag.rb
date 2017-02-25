@@ -5,12 +5,4 @@ class Tag < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true
 
-  def as_json(arg = nil)
-    {
-      name: name,
-      notes: notes.map{|note| note.as_json}
-    }
-
-  end
-
 end

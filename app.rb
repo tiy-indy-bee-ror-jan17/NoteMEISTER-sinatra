@@ -2,6 +2,20 @@ require 'sinatra'
 require 'active_record'
 require 'sqlite3'
 require 'pry'
+require 'puma'
+require 'rabl'
+require 'active_support/core_ext'
+require 'active_support/inflector'
+require 'builder'
+
+configure { set :server, :puma }
+Rabl.configure do |config|
+  config.include_json_root = false
+  config.include_child_root = false
+
+end
+Rabl.register!
+
 
 ActiveRecord::Base.establish_connection(
   adapter:  'sqlite3',
@@ -9,12 +23,11 @@ ActiveRecord::Base.establish_connection(
 )
 
 get "/api/notes.json" do
-  notes = Note.all
-  notes.to_json
+  @note = Note.all
+  rabl :note
 end
 
 get "/api/notes/tag/:tags" do
-  # pulls every note that includes the [:tag]
   tagg = Tag.find_by(name: params[:tags])
   tagg.to_json if tagg
 end
