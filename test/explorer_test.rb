@@ -15,14 +15,16 @@ class ExplorerTest < JacquesTest
     end
     super
   end
-
+  #------------------------------------
+  #
   def test_it_should_return_the_proper_list
     get '/api/notes.json'
     assert_equal 200, last_response.status
     json = JSON.parse(last_response.body)
     assert json.length == 10
   end
-
+  #------------------------------------
+  #
   def test_it_should_be_in_the_correct_format
     get '/api/notes.json'
     json = JSON.parse(last_response.body)
@@ -46,35 +48,42 @@ class ExplorerTest < JacquesTest
     assert_equal example_note(Note.first), json['notes'].first
   end
 
-  # def test_tag_create_is_correct
-  #
-  #   post '/api/notes',
-  #     {
-  #       title:  "My created post",
-  #       body:   "My created body",
-  #       tags:   "api, machine, first"
-  #     }
-  #   json = JSON.parse(last_response.body)
-  #   assert_equal "My created post", json['title']
-  #   assert_equal 11, Note.count
-  #   assert_equal 3, json['tags'].length
-  # end
-  #
-  # def test_improper_note
-  #   puts "in test_improper_note"
-  #
-  #   post '/api/notes',
-  #     {
-  #       title:  "",
-  #       body:   "My created body",
-  #       tags:   "api, machine, first"
-  #     }
-  #
-  #   assert_equal 400, last_response.status
-  #   json = JSON.parse(last_response.body)
-  #   assert_equal "Title can't be blank", json['errors'].first['error']
-  # end
+  def test_tag_create_is_correct
 
+    post '/api/notes',
+      {
+        title:  "My created post",
+        body:   "My created body",
+        tags:   "api, machine, first"
+      }
+    json = JSON.parse(last_response.body)
+    assert_equal "My created post", json['title']
+    assert_equal 11, Note.count
+    assert_equal 3, json['tags'].length
+  end
+
+#-------------------------------------------------------------
+#  For the improper note, this is the format it’s expecting that JSON message
+# to be: `{"errors" : [{"error" : "Title can't be blank""}]}`
+# (of note: Don’t hard code that in there, even if it would make
+# the tests pass)
+#
+  def test_improper_note
+    post '/api/notes',
+      {
+        title:  "",
+        body:   "",
+#testing concept of multiple errors
+#        body:   "My created body",
+        tags:   "api, machine, first"
+      }
+
+    assert_equal 400, last_response.status
+    json = JSON.parse(last_response.body)
+    assert_equal "Title can't be blank", json['errors'].first['error']
+  end
+
+#----------------------------------------------
 
   private
 
