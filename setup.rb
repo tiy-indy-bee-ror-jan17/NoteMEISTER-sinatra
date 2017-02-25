@@ -36,3 +36,5 @@ elsif ARGV[0] == 'test'
   )
   ApplicationMigration.migrate(:up)
 end
+
+# faking changes
