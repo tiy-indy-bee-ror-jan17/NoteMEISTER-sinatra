@@ -29,18 +29,18 @@ class ExplorerTest < JacquesTest
     assert_equal example_note(Note.first), json['notes'].first
   end
   #
-  # def test_tag_create_is_correct
-  #   post '/api/notes',
-  #     {
-  #       title:  "My created post",
-  #       body:   "My created body",
-  #       tags:   "api, machine, first"
-  #     }
-  #   json = JSON.parse(last_response.body)
-  #   assert_equal "My created post", json['title']
-  #   assert_equal 11, Note.count
-  #   assert_equal 3, json['tags'].length
-  # end
+  def test_tag_create_is_correct
+    post '/api/notes',
+      {
+        title:  "My created post",
+        body:   "My created body",
+        tags:   "api, machine, first"
+      }
+    json = JSON.parse(last_response.body)
+    assert_equal "My created post", json['title']
+    assert_equal 11, Note.count
+    assert_equal 3, json['tags'].length
+  end
   #
   # def test_improper_note
   #   post '/api/notes',

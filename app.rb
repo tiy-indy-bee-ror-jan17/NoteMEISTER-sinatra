@@ -27,6 +27,10 @@ ActiveRecord::Base.establish_connection(
 #    Note.new(title: params[:title], body: params[:body])
 # end
 
+
+get "/not_found" do
+end
+
 get '/api/notes.json' do
   new_notes = Note.all
   new_notes_with_tags = new_notes.collect do |t|
@@ -36,9 +40,8 @@ get '/api/notes.json' do
 end
 
 get "/api/notes/tag/:name" do
-  binding.pry
   new_tag = Tag.find_by(name: params[:name])
-  new_tag.to_json
+  new_tag.to_json() if new_tag
 end
 
 
