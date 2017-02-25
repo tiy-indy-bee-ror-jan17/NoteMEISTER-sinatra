@@ -23,11 +23,8 @@ end
 
 get "/api/notes/tag/:name" do
   t = Tag.find_by(name: params[:name])
-  t.to_json(
-    :include => ["notes.tags"],
-    :exclude => ["tags"]
-    )
-  # {name: :name, notes: [a,b,c]
+  t.to_json if t
+  # {name: :name, notes: [note1, note2, note3]
 end
 
 get "/not_found" do

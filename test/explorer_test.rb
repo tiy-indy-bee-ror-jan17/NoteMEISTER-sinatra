@@ -21,13 +21,13 @@ class ExplorerTest < JacquesTest
     assert_equal example_note(Note.first), json.first
   end
 
-  # def test_tag_lists_are_correct
-  #   note = Note.first
-  #   get "/api/notes/tag/#{note.tags.first.name}"
-  #   json = JSON.parse(last_response.body)
-  #   assert_equal note.tags.first.name, json['name']
-  #   assert_equal example_note(Note.first), json['notes'].first
-  # end
+  def test_tag_lists_are_correct
+    note = Note.first
+    get "/api/notes/tag/#{note.tags.first.name}"
+    json = JSON.parse(last_response.body)
+    assert_equal note.tags.first.name, json['name']
+    assert_equal example_note(Note.first), json['notes'].first
+  end
 
 
   def test_tag_create_is_correct
