@@ -1,26 +1,11 @@
 require 'active_record'
 
-# Write your script to setup the database tables here.
-
 class ApplicationMigration < ActiveRecord::Migration[5.0]
   def change
-    create_table :notes do |t|
-      t.string :title
-      t.text :body
-    end
-
-    create_table :tags do |t|
-      t.string :name
-    end
-
-    create_table :taggings do |t|
-      t.integer :note_id
-      t.integer :tag_id
-    end
+    remove_column :notes, :tags, :text
   end
 end
 
-# Run it command line arguments of `dev` or `test` to setup a database for dev or tests
 if ARGV[0] == 'dev'
   ActiveRecord::Base.establish_connection(
     adapter:  'sqlite3',
