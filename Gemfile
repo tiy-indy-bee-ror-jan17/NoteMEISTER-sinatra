@@ -10,6 +10,7 @@ source 'https://rubygems.org' do
   gem 'puma'
   gem 'rabl'
   gem 'builder'
+  gem 'tty'
 
 
 end
