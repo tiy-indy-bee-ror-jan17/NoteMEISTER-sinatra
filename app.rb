@@ -1,4 +1,5 @@
 require 'puma'
+require 'pry'
 require 'sinatra'
 require 'active_record'
 require 'sqlite3'
@@ -6,7 +7,7 @@ require 'ostruct'
 require 'rabl'
 configure {set :server, :puma}
 Rabl.configure do |config|
-  config.include_json_root = false
+  config.include_json_root  = false
   config.include_child_root = false
 end
 Rabl.register!
