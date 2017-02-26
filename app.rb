@@ -25,8 +25,8 @@ get "/api/notes.json" do
 end
 
 get "/api/notes/tag/:key" do
-  tag = Tag.find_by(name: params[:key])
-    tag.to_json if tag
+  @tag = Tag.find_by(name: params[:key])
+    rabl :tag if @tag
 end
 
 post "/api/notes" do
@@ -40,7 +40,8 @@ post "/api/notes" do
       tag = Tag.find_or_create_by(name: name)
       note.tags << tag
     end
-    note.to_json
+    @note = note
+    rabl :note
     else
       status 400
       {errors: note.errors.full_messages.collect{ |e|{error: e}}}.to_json
