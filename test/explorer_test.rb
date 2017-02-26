@@ -49,7 +49,6 @@ class ExplorerTest < JacquesTest
   end
 
   def test_tag_create_is_correct
-
     post '/api/notes',
       {
         title:  "My created post",

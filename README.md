@@ -8,5 +8,4 @@ And `bundle` to install the basic dependencies.
 
 #Files Supplied:
 
-setup.rb - Running this file creates the test (test) or development (dev) database based on
-the argument supplied when run.
+setup.rb - Running this file creates the test (test) or development (dev) database based on the argument supplied when run.

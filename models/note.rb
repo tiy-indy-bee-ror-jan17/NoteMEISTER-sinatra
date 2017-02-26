@@ -1,9 +1,11 @@
 
 class Note < ActiveRecord::Base
 
-#  validates :title, presence: true
+  validates :title, presence: true
 # added uniqueness to look at errors better
-  validates :title, presence: true, uniqueness: true
+#  validates :title, presence: true, uniqueness: true
+#  took back out because my tests was getting a lot of errors randomly:
+#  ActiveRecord::RecordInvalid: Validation failed: Title has already been taken
   validates :body, presence: true
 
 
