@@ -1,4 +1,4 @@
-require 'HTTPary'
+require 'httparty'
 
 class Notify
   include HTTParty
@@ -9,7 +9,7 @@ class Notify
   end
 
   def notes
-    self.class.get("'/api/notes'", @options)
+    self.class.get('/api/notes', @options)
   end
 
   def notes_to_json
@@ -17,6 +17,6 @@ class Notify
   end
 end
 
-notify = Notify.new("???", 1)
+notify = Notify.new("localhost:4567", 1)
 puts notify.notes
 puts notify.notes_to_json

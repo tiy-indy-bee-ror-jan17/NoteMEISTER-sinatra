@@ -50,9 +50,9 @@ post '/api/notes' do
       tag = Tag.find_or_create_by(name: t)
       note.tags << tag
     end
-    @notes = note
-    rabl :notes
-    # note.to_json
+    @notes = note    # using rabl
+    rabl :notes      # using rabl
+    # note.to_json   # using to_json
   else
     status 400
     {errors: note.errors.full_messages.collect{ |e|
