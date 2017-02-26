@@ -27,7 +27,7 @@ ActiveRecord::Base.establish_connection(
   database: 'db/development.sqlite3'
 )
 
-def save_error(msg)
+def request_error(msg)
   status 400
   {errors: msg.map{ |m| { error: m }}}.to_json
 end
@@ -55,7 +55,7 @@ post "/api/notes" do
   if note.save
     params[:tags].split(',').each do |t|
       Tagging.create(
-        tag: Tag.find_or_create_by(name: t),
+        tag: Tag.find_or_create_by(name: t.strip),
         note: note
       )
     end
@@ -63,12 +63,12 @@ post "/api/notes" do
     @note = note
     rabl :note
   else
-    save_error(note.errors.full_messages)
+    request_error(note.errors.full_messages)
   end
 end
 
-post "/api/notes/:note/comment" do
-  
-  "nothing yet"
-
-end
+# post "/api/notes/:note/comment" do
+#   note = Note.find_by(title: params[:title])
+#   note ? Note.update(note, comment: params[:comment])
+#     : request_error(["Note does not exist"])
+# end

@@ -12,5 +12,5 @@ source 'https://rubygems.org' do
   gem 'builder'
   gem 'tty'
 
-
+  #gem 'pry'
 end

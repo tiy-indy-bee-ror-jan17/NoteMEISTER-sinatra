@@ -2,6 +2,9 @@ require 'tty'
 require 'pry'
 require 'HTTParty'
 
+require_relative 'clinote'
+require_relative 'clitag'
+
 class Interface
   attr_accessor :prompt, :host, :response
 
@@ -28,33 +31,36 @@ class Interface
     end
   end
 
-  def run
-    while prompt.yes?("Would you like to do the http's?")
-
-      user_choice = prompt.select( "choose an endpoint:",
-        "GET /api/notes.json": "notes",
-        "GET /api/notes/tag/?": "tag",
-        "POST /api/notes": "post",
-        "cancel": nil
-        )
-
-      result = case user_choice
-              when "notes" then "/api/notes.json"
-              when "tag" then gettag
-              when "post" then getpost
-              end
-
-      response = HTTParty.get("#{host}#{result}") if result.is_a?(String)
-
-      response = HTTParty.post("#{host}/api/notes", result) if result.is_a?(Hash)
-
-      puts response
+  def process(type)
+    case type
+    when "notes"  then Note.parse(response)
+    when "tag"    then Tag.parse(response)
+    when "post"   then Note.parse("[#{response}]").first
     end
+  end
 
-    puts "goodbye!"
-    response
+  def run
+
+    user_choice = prompt.select( "choose an endpoint:",
+      "GET /api/notes.json": "notes",
+      "GET /api/notes/tag/?": "tag",
+      "POST /api/notes": "post",
+      "cancel": nil
+      )
+
+    result = case user_choice
+            when "notes" then "/api/notes.json"
+            when "tag" then gettag
+            when "post" then getpost
+            end
+
+    self.response = HTTParty.get("#{host}#{result}") if result.is_a?(String)
+
+    self.response = HTTParty.post("#{host}/api/notes", result) if result.is_a?(Hash)
+
+    puts process(user_choice)
   end
 
 end
 
-Interface.new.run
+puts Interface.new.run
