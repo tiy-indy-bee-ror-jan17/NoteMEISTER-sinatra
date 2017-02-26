@@ -1,14 +1,27 @@
 require 'sinatra'
 require 'active_record'
 require 'sqlite3'
+require 'rabl'
+require 'builder'
 
 ActiveRecord::Base.establish_connection(
   adapter:  'sqlite3',
   database: 'db/development.sqlite3'
 )
 
+Rabl.configure do |config|
+  config.include_json_root = false
+  config.include_child_root = false
+end
+
+Rabl.register!
+
 get "/api/notes.json" do
-  Note.all.to_json
+  # atnote = OpenStruct.new({title: "#{params[:title]}",
+  #                         body: "#{params[:body]}",
+  #                         tags: "#{params[:tags]}"})
+  @note = Note.all
+  rabl :note
 end
 
 get "/api/notes/tag/:key" do
