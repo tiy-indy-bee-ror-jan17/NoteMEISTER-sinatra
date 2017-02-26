@@ -1,3 +1,6 @@
 object @note
 attributes :title, :body
-#child tags
+
+child :tags do |tag|
+  attribute :name
+end
