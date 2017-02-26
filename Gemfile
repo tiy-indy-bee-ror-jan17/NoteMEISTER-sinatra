@@ -10,5 +10,7 @@ source 'https://rubygems.org' do
   gem 'rabl'
   gem 'oj'
   gem 'builder'
+  gem 'httparty'
+  gem 'tty'
 
 end
