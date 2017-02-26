@@ -1,4 +1,12 @@
 require_relative 'test_helper'
+require          'pry'
+
+#--------------------
+# JSON.parse parses a JSON string, constructing the JavaScript value
+#            or object described by the string
+# JSON.stringify creates a JSON string out of an object/array, they are opposites
+#            of one another
+#
 
 class ExplorerTest < JacquesTest
   def setup
@@ -7,20 +15,31 @@ class ExplorerTest < JacquesTest
     end
     super
   end
-
+  #------------------------------------
+  #
   def test_it_should_return_the_proper_list
     get '/api/notes.json'
     assert_equal 200, last_response.status
     json = JSON.parse(last_response.body)
     assert json.length == 10
   end
-
+  #------------------------------------
+  #
   def test_it_should_be_in_the_correct_format
     get '/api/notes.json'
     json = JSON.parse(last_response.body)
     assert_equal example_note(Note.first), json.first
   end
 
+  def test_it_should_be_in_the_correct_format_long_way_nancy_understanding
+    get '/api/notes_long_way.json'
+    json = JSON.parse(last_response.body)
+    assert_equal example_note(Note.first), json.first
+  end
+
+#------------------------------------
+# This is testing that all notes with a given tag are returned
+#
   def test_tag_lists_are_correct
     note = Note.first
     get "/api/notes/tag/#{note.tags.first.name}"
@@ -42,18 +61,28 @@ class ExplorerTest < JacquesTest
     assert_equal 3, json['tags'].length
   end
 
+#-------------------------------------------------------------
+#  For the improper note, this is the format it’s expecting that JSON message
+# to be: `{"errors" : [{"error" : "Title can't be blank""}]}`
+# (of note: Don’t hard code that in there, even if it would make
+# the tests pass)
+#
   def test_improper_note
     post '/api/notes',
       {
         title:  "",
-        body:   "My created body",
+        body:   "",
+#testing concept of multiple errors
+#        body:   "My created body",
         tags:   "api, machine, first"
       }
+
     assert_equal 400, last_response.status
     json = JSON.parse(last_response.body)
     assert_equal "Title can't be blank", json['errors'].first['error']
   end
 
+#----------------------------------------------
 
   private
 
