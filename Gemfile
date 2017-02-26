@@ -7,5 +7,8 @@ source 'https://rubygems.org' do
   gem 'sqlite3'
   gem 'factory_girl'
   gem 'faker'
+  gem 'pry'
+  gem 'rabl'
+  gem 'puma'
 
 end

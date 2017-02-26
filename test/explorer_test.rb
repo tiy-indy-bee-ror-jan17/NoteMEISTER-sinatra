@@ -29,6 +29,7 @@ class ExplorerTest < JacquesTest
     assert_equal example_note(Note.first), json['notes'].first
   end
 
+
   def test_tag_create_is_correct
     post '/api/notes',
       {
@@ -53,6 +54,7 @@ class ExplorerTest < JacquesTest
     json = JSON.parse(last_response.body)
     assert_equal "Title can't be blank", json['errors'].first['error']
   end
+  #{ errors: [{ error: "Title can't be blank"}]}
 
 
   private
