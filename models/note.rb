@@ -8,6 +8,7 @@ class Note < ActiveRecord::Base
 
   has_many :tags, through: :taggings
   has_many :taggings
+  has_many :comments
 
   def find_tag_name
     { title: title, body: body, tags: tags.map { |tag| {name: tag.name} } }

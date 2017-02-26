@@ -11,5 +11,6 @@ source 'https://rubygems.org' do
   gem 'pry'
   gem 'rabl'
   gem 'oj'
+  gem 'httparty'
 
 end

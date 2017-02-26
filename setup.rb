@@ -18,6 +18,11 @@ class ApplicationMigration < ActiveRecord::Migration[5.0]
       tagging.integer :note_id
     end
 
+    create_table :comments do |comment|
+      comment.text   :body
+      comment.integer   :note_id
+    end
+
   end
 
 end

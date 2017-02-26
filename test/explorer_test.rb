@@ -54,6 +54,14 @@ class ExplorerTest < JacquesTest
     assert_equal "Title can't be blank", json['errors'].first['error']
   end
 
+  def test_a_note_has_comments
+    note = Note.first
+    post "/api/notes/#{note.id}/comments",
+      { body: "This is a comment" }
+    json = JSON.parse(last_response.body)
+    assert_equal 1, note.comments.length
+    assert_equal "This is a comment", json["body"]
+  end
 
   private
 
@@ -61,7 +69,8 @@ class ExplorerTest < JacquesTest
     {
       "title"       => note.title,
       "body"        => note.body,
-      "tags"        => note.tags.map { |t| {"name" => t.name} }
+      "tags"        => note.tags.map { |t| {"name" => t.name} },
+      "comments"    => note.comments.map { |c| {"body" => c.body } } 
     }
   end
 
