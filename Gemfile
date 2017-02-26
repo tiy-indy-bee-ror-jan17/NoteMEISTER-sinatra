@@ -5,6 +5,7 @@ source 'https://rubygems.org' do
   gem 'rack-test', require: 'rack/test'
   gem 'activerecord'
   gem 'sqlite3'
+  gem 'builder'
   gem 'factory_girl'
   gem 'faker'
   gem 'pry'

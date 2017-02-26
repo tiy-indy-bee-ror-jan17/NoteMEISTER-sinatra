@@ -1,4 +1,4 @@
 # app/views/gets/notes.rabl
-object @noter
+object @notes
 attributes :title, :body
-child (:tags) { name :name }
+child :tags do attributes :name end

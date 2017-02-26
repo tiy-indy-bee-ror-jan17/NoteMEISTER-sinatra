@@ -24,15 +24,16 @@ get '/api/notes' do
 end
 
 get '/api/notes.json' do
-  notes = Note.all
-  # @noter = OpenStruct.new(notes)
-  # rabl @noter
-  notes.to_json
+  @notes = Note.all
+  rabl :notes           # using 'rabl'
+  # Note.all.to_json    # using 'to_json'
 end
 
 get "/api/notes/tag/:name" do
   t = Tag.find_by(name: params[:name])
-  t.to_json if t
+  @tag = t
+  rabl :tag if t       # using rabl
+  # t.to_json if t     # using 'to_json'
   # {name: :name, notes: [note1, note2, note3]
 end
 
@@ -49,12 +50,14 @@ post '/api/notes' do
       tag = Tag.find_or_create_by(name: t)
       note.tags << tag
     end
-    note.to_json
+    @notes = note
+    rabl :notes
+    # note.to_json
   else
     status 400
     {errors: note.errors.full_messages.collect{ |e|
       {error: e}
     }}.to_json
   end
-# I am now in the Adventure branch
+
 end
