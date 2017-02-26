@@ -28,8 +28,10 @@ get "/api/notes.json" do
 end
 
 get "/api/notes/tag/:tags" do
-  tagg = Tag.find_by(name: params[:tags])
-  tagg.to_json if tagg
+  @tag = Tag.find_by(name: params[:tags])
+  if @tag
+    rabl :tag
+  end
 end
 
 
@@ -38,12 +40,16 @@ post "/api/notes" do
   title: params[:title],
   body: params[:body]
   )
+
+  params[:tags].split(',').each do |name|
+    tag = Tag.find_or_create_by(name: name)
+    note.tags << tag
+  end
+
   if note.save
-    params[:tags].split(',').each do |name|
-      tag = Tag.find_or_create_by(name: name)
-      note.tags << tag
-    end
-    note.to_json
+    @note = note
+    rabl :note
+
   else
     status 400
     {errors: note.errors.full_messages.collect{ |e|
