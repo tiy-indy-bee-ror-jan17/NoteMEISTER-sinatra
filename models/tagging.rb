@@ -1,0 +1,9 @@
+class Tagging < ActiveRecord::Base
+
+  belongs_to :note
+  belongs_to :tag
+
+  validates :note_id, presence: true
+  validates :tag_id, presence: true
+
+end
