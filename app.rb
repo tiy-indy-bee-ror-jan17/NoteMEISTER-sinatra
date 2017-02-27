@@ -48,7 +48,7 @@ post "/api/notes" do
     }
     )
     if note.save
-      tag_array = params['tags'].split(", ").each do |t|
+      params['tags'].split(/,\s?/).each do |t|
         tag = Tag.find_or_create_by(name: t)
         note.tags << tag
       end
