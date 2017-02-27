@@ -6,4 +6,12 @@ class Note < ActiveRecord::Base
   validates :title, presence: true
   validates :body, presence: true
 
+  def as_json(arg = nil)
+    {
+      title: title,
+      body: body,
+      tags: tags.collect { |tag| {name: tag.name}}
+    }
+  end
+
 end

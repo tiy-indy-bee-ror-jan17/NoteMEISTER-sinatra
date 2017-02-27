@@ -41,25 +41,20 @@ get "/api/notes/tag/:name" do
 end
 
 post "/api/notes" do
-  binding.pry
-  input = Note.new(
+  note = Note.new(
     {
       title: params[:title],
       body: params[:body],
-      tags: params[:tags]
     }
     )
-
-    after(:create) do |tags|
-      input.tags.count.times do
+    if note.save
+      tag_array = params['tags'].split(", ").each do |t|
+        tag = Tag.find_or_create_by(name: t)
+        note.tags << tag
       end
+      note.to_json
+    else
+      status 400
+      {errors: note.errors.full_messages.collect{ |e| {error: e}}}.to_json
     end
-
-  if input.save
-  else
-  status 400
-  error = OpenStruct.new({code: 400, message: "Not found"})
-  error
-  end
-
 end
