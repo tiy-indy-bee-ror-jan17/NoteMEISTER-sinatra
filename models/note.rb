@@ -8,7 +8,13 @@ class Note < ActiveRecord::Base
   has_many :taggings
   has_many :tags, through: :taggings
 
-
+  def as_json(arg = nil)
+      {
+        title: title,
+        body: body,
+        tags: tags.collect {|tag| {name: tag.name} }
+      }
+  end
 
 
 end
