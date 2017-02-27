@@ -31,4 +31,10 @@ class NoteTest < JacquesTest
     assert @note.tags.to_a.is_a? Array
   end
 
+  # def test_has_comments
+  #   assert @note.save
+  #   assert @note.respond_to? :comments
+  #   assert @note.comments.to_a.is_a? Array
+  # end
+
 end
