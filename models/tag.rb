@@ -11,7 +11,7 @@ class Tag < ActiveRecord::Base
 
   def as_json(_)
     to_jsonlike_hash = -> (note){ note.as_json(_) }
-    Hash(
+    Hash( #this situation doesn't seem to be in the styleguide, but I really think bare returning hashes ought to be written out lexically, given Ruby's forgiveness of whitespace and potential confusion with blocks
       name: name,
       notes: notes.collect(&to_jsonlike_hash)
     )
