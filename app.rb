@@ -36,7 +36,7 @@ post '/api/notes' do
   if notes.save
     status 200
     if params['tags'] != nil
-      tags_array = params['tags'].split(", ")
+      tags_array = params['tags'].split(%r{,\s*})
       tags_array.each do |tag|
         if Tag.find_by(name: tag) == nil #name is unique
           tag_obj = Tag.create(name: tag)

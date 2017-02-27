@@ -7,3 +7,5 @@ Run `rake test` to run the tests.
 And `bundle` to install the basic dependencies.
 
 Have FUN!!!!!
+
+Or try at least
