@@ -54,17 +54,17 @@ class ExplorerTest < JacquesTest
     assert_equal "Title can't be blank", json['errors'].first['error']
   end
 
-  def test_cant_create_comment_for_nonexistent_note
-
-  end
-
-  def test_create_comment
-    
-  end
-
-  def test_comments_in_correct_format
-
-  end
+  # def test_cant_create_comment_for_nonexistent_note
+  #
+  # end
+  #
+  # def test_create_comment
+  #
+  # end
+  #
+  # def test_comments_in_correct_format
+  #
+  # end
 
   private
 

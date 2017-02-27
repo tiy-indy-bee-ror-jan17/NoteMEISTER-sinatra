@@ -71,4 +71,4 @@ end
 #   note = Note.find_by(title: params[:title])
 #   note ? Note.update(note, comment: params[:comment])
 #     : request_error(["Note does not exist"])
-# end
+# end #TODO add return the updated note? or something?

@@ -15,7 +15,6 @@ class Interface
   end
 
 
-
   def gettag
     tag = prompt.ask("what tag are you requesting?")
     "/api/notes/tag/#{tag}"
