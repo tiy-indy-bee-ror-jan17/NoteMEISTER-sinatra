@@ -1,10 +1,12 @@
 require 'sinatra'
 require 'active_record'
 require 'sqlite3'
-require 'json'
+require 'rabl'
 require './models/note'
 require './models/tag'
 require './models/tagging'
+
+Rabl.register!
 
 ActiveRecord::Base.establish_connection(
   adapter:  'sqlite3',
