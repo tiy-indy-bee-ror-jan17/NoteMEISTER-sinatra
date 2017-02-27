@@ -1,11 +1,15 @@
 source 'https://rubygems.org' do
 
+  gem 'puma'
   gem 'sinatra'
-  gem 'database_cleaner'
-  gem 'rack-test', require: 'rack/test'
-  gem 'activerecord'
+  gem 'rabl'
   gem 'sqlite3'
-  gem 'factory_girl'
+  gem 'activerecord'
+  gem 'database_cleaner'
   gem 'faker'
+  gem 'pry'
+  gem 'pry-nav'
+  gem 'rack-test', require: 'rack/test'
+  gem 'factory_girl'
 
 end
