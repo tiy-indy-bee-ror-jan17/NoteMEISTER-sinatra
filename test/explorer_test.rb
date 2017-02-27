@@ -53,8 +53,7 @@ class ExplorerTest < JacquesTest
     json = JSON.parse(last_response.body)
     assert_equal "Title can't be blank", json['errors'].first['error']
   end
-
-
+  
   private
 
   def example_note(note)
