@@ -4,6 +4,7 @@ require 'puma'
 require 'rabl'
 require 'active_record'
 require 'sqlite3'
+# require 'ostruct'
 require './models/note'
 require './models/tagging'
 require './models/tag'
@@ -38,20 +39,15 @@ post '/api/notes' do
          )
   if note.save
     params[:tags].split(/\s*,\s*/).each do |name|
-      tag = Tag.find_or_create_by(name: name)
-      note.tags << tag
+      note.tags << Tag.find_or_create_by!(name: name)
     end
-    jsonize.(
-      note
-    )
+    jsonize.(note)
   else
     status 400
-    jsonize.(
-      Hash(
-        errors: note.errors.full_messages.collect do |message|
-          {error: message}
-        end
-      )
-    )
+    error_list = note.errors.full_messages
+    errors = error_list.map { |_| Hash(error: _) }
+    @error = Struct.new(:code, :errors)
+                   .new(400, errors)
+    rabl :error
   end
 end
