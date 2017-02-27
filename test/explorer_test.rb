@@ -31,38 +31,32 @@ class ExplorerTest < JacquesTest
 
   def test_tag_create_is_correct
     post '/api/notes',
-      {
-        title:  "My created post",
-        body:   "My created body",
-        tags:   "api, machine, first"
-      }
+         title:  'My created post',
+         body:   'My created body',
+         tags:   'api, machine, first'
     json = JSON.parse(last_response.body)
-    assert_equal "My created post", json['title']
+    assert_equal 'My created post', json['title']
     assert_equal 11, Note.count
     assert_equal 3, json['tags'].length
   end
 
   def test_improper_note
     post '/api/notes',
-      {
-        title:  "",
-        body:   "My created body",
-        tags:   "api, machine, first"
-      }
+         title:  '',
+         body:   'My created body',
+         tags:   'api, machine, first'
     assert_equal 400, last_response.status
     json = JSON.parse(last_response.body)
     assert_equal "Title can't be blank", json['errors'].first['error']
   end
 
-
   private
 
   def example_note(note)
     {
-      "title"       => note.title,
-      "body"        => note.body,
-      "tags"        => note.tags.map { |t| {"name" => t.name} }
+      'title'       => note.title,
+      'body'        => note.body,
+      'tags'        => note.tags.map { |t| { 'name' => t.name } }
     }
   end
-
 end

@@ -1,5 +1,6 @@
-require 'rubygems'
 require 'bundler/setup'
+require 'pry'
+require 'pry-nav'
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'active_record'
@@ -17,11 +18,7 @@ FactoryGirl.find_definitions
 
 DatabaseCleaner.strategy = :truncation
 
-ActiveRecord::Base.establish_connection(
-  adapter:  'sqlite3',
-  database: 'db/test.sqlite3'
-)
-
+require_relative './test_connection'
 
 class JacquesTest < Minitest::Test
 
