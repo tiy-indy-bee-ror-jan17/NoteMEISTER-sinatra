@@ -8,7 +8,7 @@ class Tag < ActiveRecord::Base
   def as_json(arg = nil)
     {
       name: name,
-      notes: notes.map{|note| note.as_json}
+      notes: notes.map{|n| n.as_json}
     }
   end
 end

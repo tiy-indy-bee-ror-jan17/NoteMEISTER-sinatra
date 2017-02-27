@@ -8,10 +8,9 @@ class Note < ActiveRecord::Base
 
   def as_json(arg = nil)
     {
-      title:    title,
-      body:     body,
-      tags:     tags.map{|tag| {name: tag.name}}
+      title:  title,
+      body:   body,
+      tags:   tags.map{|t| {name: t.name}}
     }
-
   end
 end
