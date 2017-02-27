@@ -1,0 +1,2 @@
+object @comment
+attribute :text

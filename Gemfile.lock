@@ -13,6 +13,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (7.1.4)
+    builder (3.2.3)
     coderay (1.1.1)
     concurrent-ruby (1.0.4)
     database_cleaner (1.5.3)
@@ -27,6 +28,9 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    puma (3.7.1)
+    rabl (0.13.1)
+      activesupport (>= 2.3.14)
     rack (1.6.5)
     rack-protection (1.5.3)
       rack
@@ -48,10 +52,13 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord!
+  builder!
   database_cleaner!
   factory_girl!
   faker!
   pry!
+  puma!
+  rabl!
   rack-test!
   sinatra!
   sqlite3!

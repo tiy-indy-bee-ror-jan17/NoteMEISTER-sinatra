@@ -2,6 +2,20 @@ require 'sinatra'
 require 'active_record'
 require 'sqlite3'
 require 'pry'
+require 'puma'
+require 'rabl'
+require 'active_support/core_ext'
+require 'active_support/inflector'
+require 'builder'
+
+configure { set :server, :puma }
+Rabl.configure do |config|
+  config.include_json_root = false
+  config.include_child_root = false
+
+end
+Rabl.register!
+
 
 ActiveRecord::Base.establish_connection(
   adapter:  'sqlite3',
@@ -9,14 +23,15 @@ ActiveRecord::Base.establish_connection(
 )
 
 get "/api/notes.json" do
-  notes = Note.all
-  notes.to_json
+  @note = Note.all
+  rabl :note
 end
 
 get "/api/notes/tag/:tags" do
-  # pulls every note that includes the [:tag]
-  tagg = Tag.find_by(name: params[:tags])
-  tagg.to_json if tagg
+  @tag = Tag.find_by(name: params[:tags])
+  if @tag
+    rabl :tag
+  end
 end
 
 
@@ -25,12 +40,16 @@ post "/api/notes" do
   title: params[:title],
   body: params[:body]
   )
+
+  params[:tags].split(',').each do |name|
+    tag = Tag.find_or_create_by(name: name)
+    note.tags << tag
+  end
+
   if note.save
-    params[:tags].split(',').each do |name|
-      tag = Tag.find_or_create_by(name: name)
-      note.tags << tag
-    end
-    note.to_json
+    @note = note
+    rabl :note
+
   else
     status 400
     {errors: note.errors.full_messages.collect{ |e|
