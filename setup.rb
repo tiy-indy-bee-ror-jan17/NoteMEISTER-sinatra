@@ -4,6 +4,21 @@ require 'active_record'
 
 class ApplicationMigration < ActiveRecord::Migration[5.0]
 
+  def change
+    create_table "taggings", force: true do |t|
+      t.integer "tag_id"
+      t.integer "note_id"
+    end
+
+    create_table "notes", force: true do |t|
+      t.string "title"
+      t.string "body"
+    end
+
+    create_table "tags", force: true do |t|
+      t.string   "name"
+    end
+  end
 end
 
 # Run it command line arguments of `dev` or `test` to setup a database for dev or tests
