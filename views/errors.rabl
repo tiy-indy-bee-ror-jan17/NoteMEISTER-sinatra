@@ -1,0 +1,2 @@
+collection @errors
+attributes :message

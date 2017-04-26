@@ -1,8 +1,29 @@
 require 'active_record'
-
+require 'sqlite3'
 # Write your script to setup the database tables here.
-
 class ApplicationMigration < ActiveRecord::Migration[5.0]
+
+  def change
+    create_table :notes do |note|
+      note.text  :title
+      note.text  :body
+    end
+
+    create_table :tags do |tag|
+      tag.text  :name
+    end
+
+    create_table :taggings do |tagging|
+      tagging.integer :tag_id
+      tagging.integer :note_id
+    end
+
+    create_table :comments do |comment|
+      comment.text   :body
+      comment.integer   :note_id
+    end
+
+  end
 
 end
 
